@@ -33,20 +33,22 @@ def createSecretFile(key):
         file.close()
 
 def openSecretFile(key):
-    files = fileList()
-    for i, file in enumerate(files):
-        if(file != ".gitignore"):
-            print("{0}->{1}".format(i, file))
-    print("")
-    name = input("Nombre: ")
-    if(name == COMMANDS.BACK):
-        return
-    try:
-        position = int(name)
-    except ValueError as err:
-        position = 0
-    if(position >= 1 and position < len(files)):
-        name = files[position]
+    #files = fileList()
+    #for i, file in enumerate(files):
+    #    if(file != ".gitignore"):
+    #        print("{0}->{1}".format(i, file))
+    #print("")
+    #name = input("Nombre o posición: ")
+    #if(name == COMMANDS.BACK):
+    #    return
+    #try:
+    #    position = int(name)
+    #except ValueError as err:
+    #    position = 0
+    #if(position >= 1 and position < len(files)):
+    #    name = files[position]
+    #fullPath = "files/" + name
+    name = selectSecretFile()
     fullPath = "files/" + name
     file = openFile(fullPath)
     clearScreen()
@@ -66,6 +68,34 @@ def openSecretFile(key):
         print("")
         file.close()
 
+def deleteSecretFile(key):
+    name = selectSecretFile()
+    fullPath = "files/" + name
+    clearScreen()
+    print("¿Seguro que desea eliminar el archivo '{0}'? (y/n)".format(name))
+    inn = input()
+    if(inn == 'y' or inn == 'Y'):
+        deleteFile(fullPath)
+
+def selectSecretFile():
+    files = fileList()
+    for i, file in enumerate(files):
+        if(file != ".gitignore"):
+            print("{0}->{1}".format(i, file))
+    print("")
+    name = input("Nombre o posición: ")
+    if(name == COMMANDS.BACK):
+        return
+    try:
+        position = int(name)
+    except ValueError as err:
+        position = 0
+    if(position >= 1 and position < len(files)):
+        name = files[position]
+    return name
+
+
+
 def menu(key):
     op = 0
     run = True
@@ -73,6 +103,7 @@ def menu(key):
         ok = True
         print("{0}. Crear archivo".format(OPTIONS.CREATE))
         print("{0}. Leer archivo".format(OPTIONS.READ))
+        print("{0}. Borrar archivo".format(OPTIONS.DELETE))
         try:
             op = input("Elija una opción: ")
         except ValueError:
@@ -86,6 +117,8 @@ def menu(key):
                 createSecretFile(key)
             elif(int(op) == OPTIONS.READ):
                 openSecretFile(key)
+            elif(int(op) == OPTIONS.DELETE):
+                deleteSecretFile(key)
 
 def main():
     key = auth()

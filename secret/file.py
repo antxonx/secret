@@ -1,4 +1,4 @@
-from os import path, listdir
+from os import path, listdir, remove
 
 def openFile(name):
     fullPath = path.dirname(path.abspath(__file__))
@@ -23,3 +23,11 @@ def fileExists(name):
 def fileList():
     fullPath = path.dirname(path.abspath(__file__))
     return listdir(fullPath + '/files')
+
+def deleteFile(name):
+    fullPath = path.dirname(path.abspath(__file__))
+    if path.exists(fullPath + '/' + name):
+        remove(fullPath + '/' + name)
+        return True
+    else:
+        return False

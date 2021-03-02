@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-import signal
-import sys
 from auth import auth
 from file import *
 from cryptography.fernet import Fernet
@@ -74,11 +72,7 @@ def menu(key):
             elif(int(op) == OPTIONS.READ):
                 openSecretFile(key)
 
-def signal_handler(sig, frame):
-    sys.exit(0)
-
 def main():
-    signal.signal(signal.SIGINT, signal_handler)
     key = auth()
     if(key):
         menu(key)

@@ -75,7 +75,8 @@ def deleteSecretFile(key):
     print("¿Seguro que desea eliminar el archivo '{0}'? (y/n)".format(name))
     inn = input()
     if(inn == 'y' or inn == 'Y'):
-        deleteFile(fullPath)
+        if not deleteFile(fullPath):
+            print("No se pudo eliminar el archivo")
 
 def selectSecretFile():
     files = fileList()

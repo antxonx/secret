@@ -3,7 +3,7 @@ from os import path, listdir, remove
 def openFile(name):
     fullPath = path.dirname(path.abspath(__file__))
     try:
-        file = open(fullPath + '/' + name, 'r')
+        file = open(fullPath + '/' + name, 'rb')
         return file
     except OSError as err:
         return False
@@ -11,7 +11,7 @@ def openFile(name):
 def createFile(name):
     fullPath = path.dirname(path.abspath(__file__))
     try:
-        file = open(fullPath + '/' + name, 'w+')
+        file = open(fullPath + '/' + name, 'wb+')
         return file
     except OSError as err:
         return False

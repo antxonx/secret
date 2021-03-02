@@ -28,7 +28,7 @@ def createPassword():
         passwordConf = getpass('confirma la contraseña: ')
         if(password == passwordConf):
             correct = True
-        file.write(sha256(password.encode('utf-8')).hexdigest())
+        file.write(sha256(password.encode('utf-8')).hexdigest().encode())
         file.close()
         return createKey(password)
 
@@ -45,7 +45,7 @@ def auth():
         state = createPassword()
     else:
         password = getpass('Ingrese la contraseña: ')
-        if(sha256(password.encode('utf-8')).hexdigest() == passw):
+        if(sha256(password.encode('utf-8')).hexdigest() == passw.decode()):
             state = createKey(password)
         else:
             state = False

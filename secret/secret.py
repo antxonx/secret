@@ -29,25 +29,10 @@ def createSecretFile(key):
                     lines += "\n" + line
             line = input()
         f = Fernet(key)
-        file.write(f.encrypt(lines.encode()).decode())
+        file.write(f.encrypt(lines.encode()))
         file.close()
 
 def openSecretFile(key):
-    #files = fileList()
-    #for i, file in enumerate(files):
-    #    if(file != ".gitignore"):
-    #        print("{0}->{1}".format(i, file))
-    #print("")
-    #name = input("Nombre o posición: ")
-    #if(name == COMMANDS.BACK):
-    #    return
-    #try:
-    #    position = int(name)
-    #except ValueError as err:
-    #    position = 0
-    #if(position >= 1 and position < len(files)):
-    #    name = files[position]
-    #fullPath = "files/" + name
     name = selectSecretFile()
     fullPath = "files/" + name
     file = openFile(fullPath)
@@ -56,7 +41,7 @@ def openSecretFile(key):
         print("No se pudo abrir el archivo")
     else:
         f = Fernet(key)
-        text = f.decrypt(file.read().encode())
+        text = f.decrypt(file.read())
         print("-------.-------")
         print("{0}".format(name))
         print("-----start-----")
@@ -94,8 +79,6 @@ def selectSecretFile():
     if(position >= 1 and position < len(files)):
         name = files[position]
     return name
-
-
 
 def menu(key):
     op = 0
